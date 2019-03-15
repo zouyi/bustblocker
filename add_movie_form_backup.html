@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Disney Database - Movie Registry</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+<form method='post' action='add_movie.php'>
+    <p id="formtitle">Add Movies Form</p><br>
+    
+    <input type="text" name="title" placeholder="Title" /> <br>
+    <input type="number" name="year" min="1900" max="2020" placeholder="Year Released" /> <br>
+    <input type="text" name="runtime" placeholder="Runtime" /> <br>
+    <input type="text" name="desc" placeholder="Description" /> <br>
+    <input type="text" name="director" placeholder="Director" /> <br>
+    <select name='rating'>
+        <option value='G'>G</option>
+        <option value='PG'>PG</option>
+        <option value='PG-13'>PG-13</option>
+        <option value='R'>R</option>
+        <select><br>
+    
+    
+    <input name="submit" type="submit">
+    
+    
+    
+    </form>
+
+
+</body>
+</html>

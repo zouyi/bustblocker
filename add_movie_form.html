@@ -1,0 +1,93 @@
+<?php
+session_start();
+if (!isset($_SESSION['id'])) {
+    header( 'Location: login_form.php' ) ;
+}
+?>
+//For security make sure have logged in a have a session
+<!DOCTYPE html>
+<html lang="en">
+    <head>  
+        <meta chartset="utf-8">
+        <title>Add Movie Form</title>
+    </head>
+    <body>
+        <h1>Add Movie Form</h1> 
+<?php
+$servername = "localhost";
+$username = "webuser";
+$password = "secret1234";
+$dbname = "movies_db";
+
+// Check connection
+$conn = mysqli_connect($servername, $username, $password, $dbname);
+
+// Check connection
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+else{
+     
+    //get all the current genres from genres table
+    $res2 = mysqli_query($conn,"SELECT * FROM genres");
+ 
+    //if the query found records they we will carry on
+    if (mysqli_num_rows($res2) > 0) {
+            echo 
+            "<form method='post' action='add_movie.php'>";
+            
+            echo 
+            "<input type='hidden' name='movies_id'>";
+            
+            echo
+            "Movie Title<br>
+            <input type='text' name='movie_title' required><br>";
+            
+            echo
+            "Movie Run Time<br>
+            <input type='text' name='movie_runtime' required><br>";
+            
+            echo
+            "Movie Release Date<br>
+            <input type='text' name='movie_release_date' required><br>";
+            
+            echo
+            "Movie Description<br>
+            <textarea rows='20' cols='60' name='movie_description'></textarea><br>";
+        
+            echo
+            "Movie Rating<br>
+            <select name='movie_rating'>";
+            echo "<option>G</option>";
+            echo "<option>PG</option>";
+            echo "<option>PG-13</option>";
+            echo "<option>R</option>";
+            echo "<select><br>";
+                
+            //loop through to display all the genres
+            echo
+            "Movie Genre<br>
+            <select name='movie_genre'>";
+            //This is where we dynamic generate options
+            while($row = mysqli_fetch_assoc($res2)) {
+                echo "<option value='{$row['genres_id']}'>{$row['genre_type']}</option>";
+            }       
+            echo "<select><br>";
+         
+            echo
+            "Movie Image<br>
+            <input type='text' name='movie_image' required><br><br>";
+            
+            echo
+            "<button type='submit'>Add Movie</button>
+            </form>";
+    }       
+}
+
+mysqli_close($conn);
+        
+?>
+<br>
+        <a href="admin.php">Back to Admin</a>
+</body>
+</html>
